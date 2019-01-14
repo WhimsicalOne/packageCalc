@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Package Calculator</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="calc.css">
+</head>
+<body>
+    <h2 id="heading">Package Calculator</h2>
+    <form action="" id="form-calculator">
+        <input type="text" id="full-name" placeholder="Your name and surname">
+        <label for="Choose your shoot location">Choose your shoot location:</label>
+        <select id="shoot-location">
+            <option>Studio</option>
+            <option>On-Location</option>
+        </select>
+        <label for="people">Amount of people:</label>
+        <select name="people" id="amount-of-people">
+        </select>
+        <label for="Choose your shoot type">Choose your shoot type:</label>
+        <select id="type-of-shoot">
+            <option>Portrait</option>
+            <option>Conceptual</option>
+        </select>
+        <label for="duration">Duration:</label>
+        <input type="range" min="1" max="10" id="duration">
+        <span class="duration-value"></span>
+        <input type="submit" id="submitBtn">
+    </form>
+    <div id="calculations">
+        <h3>Final review and cost:</h3>
+        <p>Person inquiring:</p>
+        <span id="name"></span>
+
+        <p>How many people:</p>
+        <span id="persons"></span>
+
+        <p>Where:</p>
+        <span id="where"></span>
+
+        <p>Type of shoot:</p>
+        <span id="type"></span>
+
+        <p>How long:</p>
+        <span id="hours"></span>
+
+        <p>Final Cost:</p>
+        <span id="cost"></span>
+    </div>
+    <script src="calc.js"></script>
+</body>
+</html>
