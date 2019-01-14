@@ -27,10 +27,12 @@ h2, h3 {
 #form-calculator input,
 #form-calculator select {
     margin-bottom: 15px;
+    padding: 2px;
 }
 #form-calculator input:focus,
 #form-calculator select:focus {
     outline: none;
+    background: none;
     outline-offset: none;
 }
 #form-calculator input[type="text"] {
