@@ -29,9 +29,10 @@ function durationDisplay() {
     return duration.value;
 }
 people.style.display = "none";
-locale.addEventListener("change", localeSpecific);
+locale.addEventListener("click", localeSpecific);
 function localeSpecific() {
     if(locale.options[locale.selectedIndex].innerText === "Studio") {
+        people.options.length = 0;
         let choicesForStudio = {
             100 : "1 person",
             200 : "2 people",
@@ -42,6 +43,7 @@ function localeSpecific() {
             people.options[people.options.length] = new Option(choicesForStudio[index], index);
         }
     } else if (locale.options[locale.selectedIndex].innerText === "On-Location") {
+        people.options.length = 0;
         let choicesForLocale = {
             100 : "1 person",
             200 : "2 people",
@@ -54,11 +56,18 @@ function localeSpecific() {
             people.options[people.options.length] = new Option(choicesForLocale[index], index);
         }
     }
-    return people[people.selectedIndex].value;
+    return parseInt(people[people.selectedIndex].value);
 }
 function tosSelection() {
-    const value = tos[tos.selectedIndex].value;
-    return value;
+    // set values for type of shoot
+    tos.options[0].value = 200;
+    tos.options[1].value = 400;
+    const typeValue = tos[tos.selectedIndex].value;
+    return parseInt(typeValue);
+}
+function finalCalculation() {
+    const finalSum = localeSpecific() + tosSelection();
+    return finalSum;
 }
 class basicUI {
     validationAlert(status, cssName) {
@@ -81,18 +90,15 @@ document.getElementById("form-calculator").addEventListener("submit", function(e
     // set values for location option fields
     locale.options[0].value = 100;
     locale.options[1].value = 200;
-    // set values for type of shoot
-    tos.options[0].value = 200;
-    tos.options[1].value = 400;
     if (name.value === "" ) {
         ui.validationAlert("Please fill in the necessary details", "error");
     } else {
         person.innerHTML = `${name.value}`;
-        amountOfPeople.innerHTML = localeSpecific();
+        amountOfPeople.innerHTML = `${people.options[people.selectedIndex].innerText}`;
         where.innerHTML = `${locale.options[locale.selectedIndex].innerText}`;
         type.innerHTML = `${tos.options[tos.selectedIndex].innerText}`;
         howLong.innerHTML = durationDisplay() + " hour(s)";
-        finalCost.innerHTML = eval("localeSpecific() + tosSelection()");
+        finalCost.innerHTML = "R"+ finalCalculation();
         ui.validationAlert("Form completed. Thank you.", "success");
         ui.completedForm();
     }
