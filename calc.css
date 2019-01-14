@@ -9,7 +9,7 @@ h2, h3 {
     margin: 20px auto;
 }
 #form-calculator {
-    width: 450px;
+    width: 400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -57,7 +57,7 @@ h2, h3 {
 }
 /* Calculation Box */
 #calculations {
-    width: 450px;
+    width: 400px;
     margin: 20px auto;
     display: flex;
     flex-direction: column;
