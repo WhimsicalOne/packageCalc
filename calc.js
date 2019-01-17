@@ -8,67 +8,6 @@
     for user.
 Will continue as needs arise.
 */
-// form values;
-const name = document.getElementById("full-name"),
-locale = document.getElementById("shoot-location"),
-duration = document.getElementById("duration"),
-people = document.getElementById("amount-of-people"),
-tos = document.getElementById("type-of-shoot");
-// review values;
-const person = document.getElementById("name"),
-    amountOfPeople = document.getElementById("persons"),
-    where = document.getElementById("where"),
-    type = document.getElementById("type"),
-    howLong = document.getElementById("hours"),
-    finalCost = document.getElementById("cost")
-// Shows duration value;
-duration.addEventListener("change", durationDisplay);
-function durationDisplay() {
-    let span = document.querySelector(".duration-value");
-    span.innerHTML = `${duration.value} hour(s)`;
-    return duration.value;
-}
-people.style.display = "none";
-locale.addEventListener("click", localeSpecific);
-function localeSpecific() {
-    if(locale.options[locale.selectedIndex].innerText === "Studio") {
-        people.options.length = 0;
-        let choicesForStudio = {
-            100 : "1 person",
-            200 : "2 people",
-            300 : "3 people",
-        }
-        people.style.display = "block";
-        for(index in choicesForStudio) {
-            people.options[people.options.length] = new Option(choicesForStudio[index], index);
-        }
-    } else if (locale.options[locale.selectedIndex].innerText === "On-Location") {
-        people.options.length = 0;
-        let choicesForLocale = {
-            100 : "1 person",
-            200 : "2 people",
-            300 : "3 people",
-            400 : "4 people",
-            500 : "5 people"
-        }
-        people.style.display = "block";
-        for(index in choicesForLocale) {
-            people.options[people.options.length] = new Option(choicesForLocale[index], index);
-        }
-    }
-    return parseInt(people[people.selectedIndex].value);
-}
-function tosSelection() {
-    // set values for type of shoot
-    tos.options[0].value = 200;
-    tos.options[1].value = 400;
-    const typeValue = tos[tos.selectedIndex].value;
-    return parseInt(typeValue);
-}
-function finalCalculation() {
-    const finalSum = localeSpecific() + tosSelection();
-    return finalSum;
-}
 class basicUI {
     validationAlert(status, cssName) {
         const div = document.createElement("div");
@@ -84,6 +23,77 @@ class basicUI {
     completedForm() {
         document.getElementById("full-name").value = "";
     }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const ui = new basicUI();
+});
+// form values;
+const name = document.getElementById("full-name"),
+locale = document.getElementById("shoot-location"),
+duration = document.getElementById("duration"),
+people = document.getElementById("amount-of-people"),
+tos = document.getElementById("type-of-shoot");
+// review values;
+const person = document.getElementById("name"),
+    amountOfPeople = document.getElementById("persons"),
+    where = document.getElementById("where"),
+    type = document.getElementById("type"),
+    howLong = document.getElementById("hours"),
+    finalCost = document.getElementById("cost")
+// Shows duration value;
+
+duration.addEventListener("change", durationDisplay);
+function durationDisplay() {
+    let span = document.querySelector(".duration-value");
+    span.innerHTML = `${duration.value} hour(s)`;
+    return duration.value;
+}
+locale.addEventListener("click", localeSpecific);
+function localeSpecific() {
+    const whatLocation = document.createElement("input");
+    if(locale.options[locale.selectedIndex].innerText === "Studio") {
+        people.options.length = 0;
+        let choicesForStudio = {
+            100 : "1 person",
+            200 : "2 people",
+            300 : "3 people",
+        }
+        for(index in choicesForStudio) {
+            people.options[people.options.length] = new Option(choicesForStudio[index], index);
+        }
+        document.querySelector(".where").remove();
+    } else if (locale.options[locale.selectedIndex].innerText === "On-Location") {
+        people.options.length = 0;
+        let choicesForLocale = {
+            100 : "1 person",
+            200 : "2 people",
+            300 : "3 people",
+            400 : "4 people",
+            500 : "5 people"
+        }
+        for(index in choicesForLocale) {
+            people.options[people.options.length] = new Option(choicesForLocale[index], index);
+        }
+        whatLocation.className = "where";
+        if(document.querySelector(".where") < 1) {
+            whatLocation.type = "text";
+            whatLocation.placeholder = "Tell us where that may be?";
+            const elementParent = people.parentNode;
+            elementParent.insertBefore(whatLocation, people.previousSibling.previousSibling);
+        }
+    }
+    return parseInt(people[people.selectedIndex].value);
+}
+function tosSelection() {
+    // set values for type of shoot
+    tos.options[0].value = 200;
+    tos.options[1].value = 400;
+    const typeValue = tos[tos.selectedIndex].value;
+    return parseInt(typeValue);
+}
+function finalCalculation() {
+    const finalSum = localeSpecific() + tosSelection();
+    return finalSum;
 }
 document.getElementById("form-calculator").addEventListener("submit", function(e) {
     const ui = new basicUI();
